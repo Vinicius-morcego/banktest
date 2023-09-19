@@ -52,8 +52,10 @@ public class MovimentacaoController {
 		movimentacao.setConta(mConta.get());
 		if(movimentacao.getOperacao() == 0)
 			movimentacaoService.realizarSaque(movimentacao);
-		else 
+		else if(movimentacao.getOperacao() == 1)
 			movimentacaoService.realizarDeposito(movimentacao);
+		else
+			throw new Exception("Operação inválida");
 			
 		return movimentacaoService.salvarMovimentacao(movimentacao);
 	}

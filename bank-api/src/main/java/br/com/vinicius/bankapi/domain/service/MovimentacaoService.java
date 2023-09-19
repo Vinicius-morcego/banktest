@@ -34,9 +34,8 @@ public class MovimentacaoService {
 		movimentacao.realizarDeposito();		
 	}
 	
-	private Boolean validaOperacaoSaque(BigDecimal valor, Conta conta) throws Exception {			
-		BigDecimal resultado = conta.getLimite().add(conta.getSaldo());
-		return valor.compareTo(resultado) > 0;
+	private Boolean validaOperacaoSaque(BigDecimal valor, Conta conta) throws Exception {
+		return valor.compareTo(conta.getSaldo()) > 0; 
 	}
 	
 	
