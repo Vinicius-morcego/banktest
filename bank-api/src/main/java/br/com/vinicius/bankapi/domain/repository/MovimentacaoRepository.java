@@ -10,5 +10,5 @@ import br.com.vinicius.bankapi.domain.model.Movimentacao;
 @Repository
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long>{
 
-	Optional<Movimentacao> findByContaNumero(String numero);
+	Optional<Movimentacao> findMovimentacaoByContaId(Long contaId);
 }

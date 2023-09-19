@@ -25,7 +25,7 @@ public class ContaService {
 	}
 	
 	public Boolean validaCadastroConta(String numero) {
-		Optional<Conta> conta = contaRepository.findByNumero(numero);
+		Optional<Conta> conta = contaRepository.findContaByNumero(numero);
 		return conta.isPresent();
 	}
 	

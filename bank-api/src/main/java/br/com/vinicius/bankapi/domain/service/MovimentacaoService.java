@@ -1,39 +1,43 @@
 package br.com.vinicius.bankapi.domain.service;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.vinicius.bankapi.domain.model.Conta;
 import br.com.vinicius.bankapi.domain.model.Movimentacao;
-import br.com.vinicius.bankapi.domain.repository.ContaRepository;
 import br.com.vinicius.bankapi.domain.repository.MovimentacaoRepository;
 import jakarta.transaction.Transactional;
 
 @Service
 public class MovimentacaoService {
-
-	@Autowired 
-	private MovimentacaoRepository movimentacaoRepository;
 	
 	@Autowired
-	private ContaRepository contaRepository;
+	private MovimentacaoRepository movimentacaoRepository;
 	
 	@Transactional
-	public Movimentacao salvarMovimentacao(Movimentacao movimentacao) {		
+	public Movimentacao salvarMovimentacao(Movimentacao movimentacao) {
 		return movimentacaoRepository.save(movimentacao);
-	}	
-	
-	private Boolean validaCadastroMovimentacao(String numero) {
-		Optional<Movimentacao> movimentacao = movimentacaoRepository.findByContaNumero(numero);
-		return movimentacao.isPresent();
 	}
 	
-	private Boolean validaOperacaoSaque(BigDecimal valor, Movimentacao movimentacao) {
-		Optional<Conta> conta = contaRepository.findById(movimentacao.getConta().getId());
-		BigDecimal resultado = conta.get().getLimite().add(conta.get().getSaldo());
-		return resultado.compareTo(valor) > 0;
+	@Transactional
+	public void realizarSaque(Movimentacao movimentacao) throws Exception {
+		if(validaOperacaoSaque(movimentacao.getValor(), movimentacao.getConta()))
+			throw new Exception(String.format("Operação inválida, saldo indisponivel para conta %s.", 
+					movimentacao.getConta().getNumero()));		
+		movimentacao.realizarSaque();
 	}
+	
+	@Transactional
+	public void realizarDeposito(Movimentacao movimentacao) throws Exception {
+		movimentacao.realizarDeposito();		
+	}
+	
+	private Boolean validaOperacaoSaque(BigDecimal valor, Conta conta) throws Exception {			
+		BigDecimal resultado = conta.getLimite().add(conta.getSaldo());
+		return valor.compareTo(resultado) > 0;
+	}
+	
+	
 }

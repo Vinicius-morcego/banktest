@@ -11,6 +11,6 @@ import br.com.vinicius.bankapi.domain.model.Conta;
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Long>{
 
-	Optional<Conta> findByNumero(String numero);
+	Optional<Conta> findContaByNumero(String numero);
 	Optional<Conta> findByClienteId(Long clienteId);
 }
