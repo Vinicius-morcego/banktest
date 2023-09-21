@@ -1,4 +1,4 @@
-# banktest
+# Bank Test
 Teste simples de API para banco
 
 <h1>Tecnologias</h1><br>
