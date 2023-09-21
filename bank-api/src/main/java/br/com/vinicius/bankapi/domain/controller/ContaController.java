@@ -46,7 +46,7 @@ public class ContaController {
 		return contaService.salvarConta(conta);
 	}
 	
-	@DeleteMapping("deletar/{numero}")
+	@DeleteMapping("/deletar/{numero}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletarConta(@PathVariable String numero) {
 		Conta conta = contaService.buscarOuFalhar(StringUtils.removeMask(numero));
