@@ -9,6 +9,7 @@ Spring Web
 Spring Data JPA
 Flyway
 MySQL
+Lombok
 
 Estrutura de tabelas
 Cliente (id, nome, cpf)
