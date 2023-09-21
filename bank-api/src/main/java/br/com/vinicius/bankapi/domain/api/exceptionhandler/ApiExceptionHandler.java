@@ -1,4 +1,4 @@
-package br.com.vinicius.bankapi.domain.api;
+package br.com.vinicius.bankapi.domain.api.exceptionhandler;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -18,8 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 
-import br.com.vinicius.bankapi.domain.api.exceptionhandler.Problem;
-import br.com.vinicius.bankapi.domain.api.exceptionhandler.ProblemType;
 import br.com.vinicius.bankapi.domain.exception.EntidadeNaoEncontradaException;
 import br.com.vinicius.bankapi.domain.exception.NegocioException;
 import lombok.extern.log4j.Log4j2;
@@ -28,7 +26,7 @@ import lombok.extern.log4j.Log4j2;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 
-	public static final String MSG_ERRO_SERVIDOR = "";
+	public static final String MSG_ERRO_INTERNO = "Erro interno, se o problema persistir contate o administrador.";
 	
 	@Autowired
 	MessageSource messageSource;
@@ -58,7 +56,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		HttpStatusCode status = HttpStatusCode.valueOf(500);
 		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
 		
-		String detail = MSG_ERRO_SERVIDOR;
+		String detail = MSG_ERRO_INTERNO;
 		ex.printStackTrace();
 		Problem problem = createProblemBuilder(status, problemType, detail)
 				.userMessage(detail)
@@ -87,11 +85,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 			body = Problem.builder().timestamp(OffsetDateTime.now())
 					.status(status.value())
 					.title(HttpStatus.valueOf(status.value()).getReasonPhrase())
-					.userMessage(MSG_ERRO_SERVIDOR).build();
+					.userMessage(MSG_ERRO_INTERNO).build();
 		}else if(body instanceof String) {
 			body = Problem.builder().timestamp(OffsetDateTime.now())
 					.status(status.value())
-					.title((String) body).userMessage(MSG_ERRO_SERVIDOR).build();
+					.title((String) body).userMessage(MSG_ERRO_INTERNO).build();
 		}
 		
 		return super.handleExceptionInternal(ex, body, headers, status, request);

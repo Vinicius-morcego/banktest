@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.vinicius.bankapi.StringUtils;
 import br.com.vinicius.bankapi.domain.model.Cliente;
 import br.com.vinicius.bankapi.domain.repository.ClienteRepository;
 import br.com.vinicius.bankapi.domain.service.ClienteService;
@@ -34,6 +35,9 @@ public class ClienteController {
 	
 	@PostMapping("/salvar")
 	public Cliente salvar(@RequestBody Cliente cliente) throws Exception{		
+		if(cliente.getCpf().length() > 11)
+			cliente.setCpf(StringUtils.removeMask(cliente.getCpf()));
+		
 		return clienteService.salvaCliente(cliente);
 	}
 	

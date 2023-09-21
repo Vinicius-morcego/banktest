@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.vinicius.bankapi.domain.exception.NegocioException;
 import br.com.vinicius.bankapi.domain.model.Conta;
 import br.com.vinicius.bankapi.domain.model.Movimentacao;
 import br.com.vinicius.bankapi.domain.repository.MovimentacaoRepository;
@@ -25,7 +26,7 @@ public class MovimentacaoService {
 	@Transactional
 	public void realizarSaque(Movimentacao movimentacao) throws Exception {
 		if(validaOperacaoSaque(movimentacao.getValor(), movimentacao.getConta()))
-			throw new Exception(String.format("Operação inválida, saldo indisponivel para conta %s.", 
+			throw new NegocioException(String.format("Operação inválida, saldo indisponivel para conta %s.", 
 					movimentacao.getConta().getNumero()));		
 		movimentacao.realizarSaque();
 	}
