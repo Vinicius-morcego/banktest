@@ -1,7 +1,7 @@
 # banktest
 Teste simples de API para banco
 
-Tecnologias<br>
+<h1>Tecnologias<h1><br>
 Java 17<br>
 Spring v3.0<br>
 Spring Boot<br>
@@ -11,12 +11,12 @@ Flyway<br>
 MySQL<br>
 Lombok<br><br>
 
-Estrutura de tabelas<br>
+<h1>Estrutura de tabelas<h1><br>
 Cliente (id, nome, cpf)<br>
 Conta (id, client_id, numero, limite, saldo);<br>
 Movimentação (id, conta_id, operação, valor, data_hora)<br><br>
 
-Regra de Negócio<br>
+<h1>Regra de Negócio<h1><br>
 Não cadastrar mais de um cliente com o mesmo CPF<br>
 Não deletar cliente com conta vinculada;<br>
 Não cadastrar mais de uma conta com mesmo número<br>
