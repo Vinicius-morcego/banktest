@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence"
+	version="2.2">
+	
+	<named-query name="Conta.existsResponsavel">
+		
+		<query>
+			
+			from Conta c
+			join Cliente cl
+			on c.cliente.id=cl.id 
+			where c.cliente.id = :clienteId 
+		</query>
+	
+	
+	</named-query>
+	
+	<named-query name="Conta.consultarPorNumero">
+		
+		<query>
+			select case when count(1) > 0 then true else false end
+			from Conta
+			where numero=:numero
+		</query>
+	
+	
+	</named-query>
+	
+<!-- 	<named-query name="Pedido.existsResponsavelPedido"> -->
+		
+<!-- 		<query> -->
+<!-- 			select case when count(1) > 0 then true else false end -->
+<!-- 			from Pedido p -->
+<!-- 			join p.restaurante rest -->
+<!-- 			join rest.responsaveis resp -->
+<!-- 			where p.codigo =: codigoPedido  -->
+<!-- 			and resp.id =: usuarioId -->
+<!-- 		</query> -->
+	
+	
+<!-- 	</named-query> -->
+</entity-mappings>

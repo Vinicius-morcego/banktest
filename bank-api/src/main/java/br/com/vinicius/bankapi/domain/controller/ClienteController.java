@@ -40,6 +40,7 @@ public class ClienteController {
 	@DeleteMapping("/{clienteId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletarCliente(@PathVariable Long clienteId) throws Exception {
-		clienteService.deletarCliente(clienteId);
+		Cliente cliente = clienteService.buscarOuFalhar(clienteId);
+		clienteService.deletarCliente(cliente);
 	}
 }

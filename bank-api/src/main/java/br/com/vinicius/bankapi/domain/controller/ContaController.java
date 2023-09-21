@@ -37,7 +37,7 @@ public class ContaController {
 	}
 	
 	@PostMapping("/salvar/{clienteId}")
-	public Conta salvarConta(@PathVariable Long clienteId, @RequestBody Conta conta) throws Exception {
+	public Conta salvarConta(@PathVariable Long clienteId, @RequestBody Conta conta) {
 		Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 		if(cliente.isPresent()) conta.setCliente(cliente.get());
 		conta.setNumero(StringUtils.removeMask(conta.getNumero()));		
