@@ -33,7 +33,7 @@ public class MovimentacaoController {
 	public Optional<Movimentacao> getMovimentacao(@PathVariable String numero, 
 			@RequestBody Movimentacao movimentacao) throws Exception{
 		Conta mConta = contaService.buscarOuFalhar(numero);		
-		Optional<Movimentacao> buscaMovimentacao = movimentacaoRepository.findMovimentacaoByContaId(mConta.getId());		
+		Optional<Movimentacao> buscaMovimentacao = movimentacaoRepository.findMovimentacaoByNumeroConta(mConta.getNumero());		
 		if(buscaMovimentacao.isEmpty()) throw new Exception(String.format(
 				"Nenhuma movimentação para conta de numero '%s' disponivel", buscaMovimentacao.get().getConta().getNumero()));
 		return buscaMovimentacao;

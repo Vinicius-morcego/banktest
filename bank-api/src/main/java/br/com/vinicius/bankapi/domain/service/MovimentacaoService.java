@@ -1,6 +1,7 @@
 package br.com.vinicius.bankapi.domain.service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,8 @@ public class MovimentacaoService {
 		return valor.compareTo(conta.getSaldo()) > 0; 
 	}
 	
-	
+	public Boolean validaContaVinculada(String numero) {
+		Optional<Movimentacao> movimentacao = movimentacaoRepository.findMovimentacaoByNumeroConta(numero);
+		return movimentacao.isPresent();
+	}
 }

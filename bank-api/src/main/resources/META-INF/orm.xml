@@ -21,7 +21,7 @@
 	<named-query name="Conta.consultarPorNumero">
 		
 		<query>
-			select case when count(1) > 0 then true else false end
+<!-- 			select case when count(1) > 0 then true else false end -->
 			from Conta
 			where numero=:numero
 		</query>
@@ -29,17 +29,16 @@
 	
 	</named-query>
 	
-<!-- 	<named-query name="Pedido.existsResponsavelPedido"> -->
+	<named-query name="Movimentacao.existsContaMovimentacao">
 		
-<!-- 		<query> -->
-<!-- 			select case when count(1) > 0 then true else false end -->
-<!-- 			from Pedido p -->
-<!-- 			join p.restaurante rest -->
-<!-- 			join rest.responsaveis resp -->
-<!-- 			where p.codigo =: codigoPedido  -->
-<!-- 			and resp.id =: usuarioId -->
-<!-- 		</query> -->
+		<query>
+			
+			from Movimentacao m
+			join Conta c 
+			on m.conta.id=c.id
+			where m.conta.numero=:numero
+		</query>
 	
 	
-<!-- 	</named-query> -->
+	</named-query>
 </entity-mappings>
