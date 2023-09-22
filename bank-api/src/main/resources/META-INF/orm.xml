@@ -41,4 +41,13 @@
 	
 	
 	</named-query>
+	
+	<named-query name="Movimentacao.porPeriodo">
+		<query>
+			from Movimentacao 
+			where data_hora 
+			between :dataInicial and :dataFinal 
+
+		</query>
+	</named-query>
 </entity-mappings>

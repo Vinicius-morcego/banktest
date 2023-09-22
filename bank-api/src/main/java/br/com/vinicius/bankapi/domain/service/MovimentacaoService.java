@@ -1,7 +1,7 @@
 package br.com.vinicius.bankapi.domain.service;
 
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class MovimentacaoService {
 	}
 	
 	public Boolean validaContaVinculada(String numero) {
-		Optional<Movimentacao> movimentacao = movimentacaoRepository.findMovimentacaoByNumeroConta(numero);
-		return movimentacao.isPresent();
+		Collection<Movimentacao> movimentacao = movimentacaoRepository.findMovimentacaoByNumeroConta(numero);
+		return !movimentacao.isEmpty();
 	}
 }
