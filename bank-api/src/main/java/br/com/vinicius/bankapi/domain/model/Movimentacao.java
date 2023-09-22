@@ -5,6 +5,9 @@ import java.time.OffsetDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.com.vinicius.bankapi.domain.api.view.MovimentacaoView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,12 +26,19 @@ public class Movimentacao{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(name = "conta_id")
+	@JsonView(MovimentacaoView.Resumo.class)
 	private Conta conta;
+	
+	@JsonView(MovimentacaoView.Resumo.class)
 	private Integer operacao;
+	
+	@JsonView(MovimentacaoView.Resumo.class)
 	private BigDecimal valor;
 	
+	@JsonView(MovimentacaoView.Resumo.class)
 	@CreationTimestamp
 	private OffsetDateTime data_hora;
 

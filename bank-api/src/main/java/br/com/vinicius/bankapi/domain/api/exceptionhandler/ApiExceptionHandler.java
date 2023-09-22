@@ -26,7 +26,7 @@ import lombok.extern.log4j.Log4j2;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 
-	public static final String MSG_ERRO_INTERNO = "Erro interno, se o problema persistir contate o administrador.";
+	public static final String MSG_ERRO_INTERNO = "Erro interno, se o problema persistir contate o administrador do sistema.";
 	
 	@Autowired
 	MessageSource messageSource;
@@ -38,7 +38,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(EntidadeNaoEncontradaException.class)
 	public ResponseEntity<?> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request){
-		HttpStatusCode status = HttpStatusCode.valueOf(400);
+		HttpStatusCode status = HttpStatusCode.valueOf(404);
 		ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
 		
 		String detail = ex.getMessage();

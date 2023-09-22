@@ -19,7 +19,12 @@ public class MovimentacaoService {
 	private MovimentacaoRepository movimentacaoRepository;
 	
 	@Transactional
-	public Movimentacao salvarMovimentacao(Movimentacao movimentacao) {
+	public Movimentacao salvarMovimentacao(Movimentacao movimentacao) throws Exception {
+		if(movimentacao.getOperacao() == 0)
+			realizarSaque(movimentacao);
+		else if(movimentacao.getOperacao() == 1)				
+			realizarDeposito(movimentacao);
+		else throw new NegocioException("Operação inválida");
 		return movimentacaoRepository.save(movimentacao);
 	}
 	

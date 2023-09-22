@@ -2,6 +2,9 @@ package br.com.vinicius.bankapi.domain.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.com.vinicius.bankapi.domain.api.view.MovimentacaoView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,12 +24,18 @@ public class Conta {
 	@EqualsAndHashCode.Include
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+	@JsonView(MovimentacaoView.Resumo.class)
 	private String numero;
 	private BigDecimal limite;
+	
+	@JsonView(MovimentacaoView.Resumo.class)
 	private BigDecimal saldo;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	@JsonView(MovimentacaoView.Resumo.class)
+	private Cliente cliente;
+	
 	
 	
 
