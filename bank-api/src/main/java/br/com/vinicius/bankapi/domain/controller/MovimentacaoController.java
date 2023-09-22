@@ -1,9 +1,6 @@
 package br.com.vinicius.bankapi.domain.controller;
 
-import java.time.OffsetDateTime;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.com.vinicius.bankapi.domain.api.view.MovimentacaoView;
-import br.com.vinicius.bankapi.domain.exception.ContaNaoEncontradaException;
 import br.com.vinicius.bankapi.domain.model.Conta;
 import br.com.vinicius.bankapi.domain.model.Movimentacao;
 import br.com.vinicius.bankapi.domain.repository.MovimentacaoRepository;
@@ -46,10 +41,10 @@ public class MovimentacaoController {
 	}
 	
 	@GetMapping
-	public Collection<Movimentacao> getMovimentacaoPorPeriodo(@RequestParam OffsetDateTime dataInicial, 
-			@RequestParam OffsetDateTime dataFinal){
-		//return movimentacaoRepository.findAll(MovimentacaoSpecs.usandoFiltros(filtro));
-		return movimentacaoRepository.findMovimentacaoByPeriodo(dataInicial, dataFinal);
+	public Collection<Movimentacao> getMovimentacaoPorPeriodo(MovimentacaoFilter filtro){
+		return movimentacaoRepository.findAll(MovimentacaoSpecs.usandoFiltros(filtro));
+		//para utilizar essa consulta precisa criar parametros do tipo offsetdatetime
+		//return movimentacaoRepository.findMovimentacaoByPeriodo(dataInicial, dataFinal);
 	}
 	
 	@PostMapping("/salvar/{numero}")
